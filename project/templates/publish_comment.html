@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Publish Comment
+{% endblock %}
+
+{% block main %}
+  <form action="{{ url_for('publish_comment', post_id=post_id)}}" method="post">
+    <div class="mb-3">
+      <label for="comment" class="form-label">Comment</label>
+      <textarea class="form-control" id="comment" name="comment" rows="2" placeholder="Enter Your Comment" autocomplete="off"></textarea>
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-outline-primary" type="submit">Publish Comment</button>
+    </div>
+  </form>
+{% endblock %}

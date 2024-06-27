@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogg-50: {% block title %}{% endblock %}</title>
+
+    <!-- Linking Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- Linking additional css -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+    <!-- Linking FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <!-- Linking little possible stylesheets per html file -->
+    {% block styles %}{% endblock %}
+  </head>
+  <body>
+
+    <div class="d-flex flex-column min-vh-100">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand nav-item" href="/">Blogg-50</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="ms-auto">
+                        <form class="d-flex" role="search" action="/search" method="get">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query" autocomplete="off">
+                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                        </form>
+                    </div>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 nav-underline">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('blog') }}">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="contact">Contact</button>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ url_for('posts_by_category', category='Technology') }}">Technology</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('posts_by_category', category='Science') }}">Science</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('posts_by_category', category='Video Games') }}">Video Games</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('posts_by_category', category='Life') }}">Life</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('posts_by_category', category='Cooking') }}">Cooking</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('posts_by_category', category='Traveling') }}">Traveling</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('posts_by_category', category='Sports and Fitness') }}">Sports and Fitness</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('posts_by_category', category='Fashion and Design') }}">Fashion and Design</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('posts_by_category', category='Movies and Series') }}">Movies and Series</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('posts_by_category', category='Books') }}">Books</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('posts_by_category', category='Music') }}">Music</a></li>
+                                {% if session["user_id"] %}
+                                    <li class="dropdown-divider"><br></li>
+                                    <li><a class="dropdown-item" href="/new_post">New Post</a></li>
+                                    <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                                {% endif %}
+                            </ul>
+                            {% if session["user_id"] %}
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary" href="/change_password">Change Password</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary" href="/logout">Log Out</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary" href="/login">Log In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary" href="/register">Register</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        {% if get_flashed_messages() %}
+        <header>
+            <div class="alert alert-primary mb-0 text-center" role="alert">
+                {{ get_flashed_messages() | join(" ") }}
+            </div>
+        </header>
+        {% endif %}
+
+        <main class="container py-5 text-center flex-grow-1">
+            {% block main %}{% endblock %}
+        </main>
+
+        <footer class="footer mt-auto" id="footer">
+            <div class="card text-center w-100">
+                <div class="card-body align-items-center justify-content-center m-auto">
+                    <a href="https://www.instagram.com/caganapaydin78/" class="card-link"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/emin-%C3%A7a%C4%9Fan-apayd%C4%B1n-8657772a3/" class="card-link"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://github.com/e-cagan" class="card-link"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.youtube.com/channel/UCl5EcpIK4ls4y_Qgm2wdJ8A" class="card-link"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('contact').addEventListener('click', function() {
+                document.getElementById('footer').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Followers List
+{% endblock %}
+
+{% block styles %}
+  <style>
+    .profile-image {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      border-bottom: 1px solid #cccccc;
+    }
+
+    .card-body:last-child {
+      border-bottom: none;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .profile-info h5, .profile-info p {
+      margin: 0;
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+  {% if followers|length == 0 %}
+    <h2 class="text-center text-primary">No users found.</h2>
+  {% else %}
+    <div class="card mx-auto" style="max-width: 800px;">
+      <h5 class="card-header text-center">Follower Users</h5>
+      {% for follower in followers %}
+        <div class="card-body">
+          <div class="profile-info">
+            {% if follower.follower_profile_image %}
+              <img src="{{ url_for('static', filename='images/' ~ follower.follower_profile_image) }}" alt="Profile Image" class="profile-image">
+            {% else %}
+              <img src="{{ url_for('static', filename='images/default_profile.jpg') }}" alt="Profile Image" class="profile-image">
+            {% endif %}
+            <div>
+              <h5>{{ follower.username }}</h5>
+              <p>Joined: {{ follower.join_date }}</p>
+              <p>Followers: {{ follower.followers }}</p>
+              <p>Following: {{ follower.following }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

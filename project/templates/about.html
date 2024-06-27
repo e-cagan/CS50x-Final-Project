@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  About
+{% endblock %}
+
+{% block main %}
+  <div class="mb-3">
+    <button class="btn btn-outline-primary" id="who">Who Am I?</button>
+    <p class="text-primary text-center" id="textWho"></p>
+  </div>
+  <div class="mb-3">
+    <button class="btn btn-outline-primary" id="why">Why Did I Chose This Project To Do?</button>
+    <p class="text-primary text-center" id="textWhy"></p>
+  </div>
+  <div class="mb-3">
+    <button class="btn btn-outline-primary" id="what">What Can We Do On This Project?</button>
+    <p class="text-primary text-center" id="textWhat"></p>
+  </div>
+  <div class="mb-3">
+    <p class="text-primary text-center">Thanks for trying out my final project of CS50x. Enjoy!!!</p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Define variables to track if the text is displayed
+        let whoDisplayed = false;
+        let whyDisplayed = false;
+        let whatDisplayed = false;
+
+        document.getElementById('who').addEventListener('click', function() {
+          // If text is already displayed, clear it
+          if (whoDisplayed) {
+            document.getElementById('textWho').innerHTML = '';
+            whoDisplayed = false;
+          } else {
+            document.getElementById('textWho').innerHTML = 'Hello, I am Emin Çağan Apaydın. I am studying computer engineering on my second year at Istanbul Okan University.';
+            whoDisplayed = true;
+          }
+        });
+
+        document.getElementById('why').addEventListener('click', function() {
+          // If text is already displayed, clear it
+          if (whyDisplayed) {
+            document.getElementById('textWhy').innerHTML = '';
+            whyDisplayed = false;
+          } else {
+            document.getElementById('textWhy').innerHTML = "I choosed this project to de because in future I want to work as a web developer. That's why I want to improve myself in web development also I want to sharpen my skill set that I gained from CS50x.";
+            whyDisplayed = true;
+          }
+        });
+
+        document.getElementById('what').addEventListener('click', function() {
+          // If text is already displayed, clear it
+          if (whatDisplayed) {
+            document.getElementById('textWhat').innerHTML = '';
+            whatDisplayed = false;
+          } else {
+            document.getElementById('textWhat').innerHTML = 'Briefly we can share posts update or delete posts, make a comment or sub comment on particular posts, like/dislike posts and much more...';
+            whatDisplayed = true;
+          }
+        });
+    });
+  </script>
+{% endblock %}

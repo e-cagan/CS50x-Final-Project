@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Comments
+{% endblock %}
+
+{% block main %}
+  <div class="container">
+    {% for comment in comments %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            {% if comment.profile_image %}
+              <img src="{{ url_for('static', filename='images/' ~ comment.profile_image) }}" alt="Profile Image" class="rounded-circle mr-3" style="width: 100px; height: 100px;">
+            {% else %}
+              <img src="{{ url_for('static', filename='images/default_profile.jpg') }}" alt="Profile Image" class="rounded-circle mr-3" style="width: 100px; height: 100px;">
+            {% endif %}
+            <div>
+              <h5 class="card-title mb-0">{{ comment.username }}</h5>
+              <p class="card-text"><small class="text-muted">{{ comment.publish_date }}</small></p>
+            </div>
+          </div>
+          <p class="card-text mt-3">{{ comment.comment }}</p>
+          <div class="d-flex">
+            <form action="{{ url_for('update_comment', comment_id=comment.id) }}" method="post" class="mr-2">
+              <button type="submit" class="btn btn-outline-primary">Update Comment</button>
+            </form>
+            <form action="{{ url_for('delete_comment', comment_id=comment.id) }}" method="post" class="mr-2">
+              <button type="submit" class="btn btn-outline-danger">Delete Comment</button>
+            </form>
+            <a href="{{ url_for('publish_sub_comment', comment_id=comment.id) }}" class="btn btn-outline-success">Reply</a>
+          </div>
+          {% for sub_comment in sub_comments %}
+            {% if sub_comment.comment_id == comment.id %}
+              <div class="card mt-3 ml-5">
+                <div class="card-body">
+                  <div class="d-flex align-items-center">
+                    {% if sub_comment.profile_image %}
+                      <img src="{{ url_for('static', filename='images/' ~ sub_comment.profile_image) }}" alt="Profile Image" class="rounded-circle mr-3" style="width: 75px; height: 75px;">
+                    {% else %}
+                      <img src="{{ url_for('static', filename='images/default_profile.jpg') }}" alt="Profile Image" class="rounded-circle mr-3" style="width: 75px; height: 75px;">
+                    {% endif %}
+                    <div>
+                      <h6 class="card-title mb-0">{{ sub_comment.username }}</h6>
+                      <p class="card-text"><small class="text-muted">{{ sub_comment.publish_date }}</small></p>
+                    </div>
+                  </div>
+                  <p class="card-text mt-3">{{ sub_comment.sub_comment }}</p>
+                  <div class="d-flex">
+                    <form action="{{ url_for('update_sub_comment', sub_comment_id=sub_comment.id) }}" method="post" class="mr-2">
+                      <button type="submit" class="btn btn-outline-primary">Update Sub Comment</button>
+                    </form>
+                    <form action="{{ url_for('delete_sub_comment', sub_comment_id=sub_comment.id) }}" method="post">
+                      <button type="submit" class="btn btn-outline-danger">Delete Sub Comment</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+    {% if comments|length == 0 %}
+      <h2 class="text-center text-primary">No comments yet.</h2>
+    {% endif %}
+    <a href="{{ url_for('publish_comment', post_id=post_id) }}" class="btn btn-outline-primary">Publish Comment</a>
+  </div>
+{% endblock %}

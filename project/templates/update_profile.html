@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Update Profile
+{% endblock %}
+
+{% block main %}
+  <form action="/update_profile" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="profile_image" class="form-label">Profile Image</label>
+      <input class="form-control" type="file" id="profile_image" name="profile_image" placeholder="Profile Image" autocomplete="off">
+    </div>
+    <div class="mb-3">
+      <label for="bio" class="form-label">Bio</label>
+      <textarea class="form-control" id="bio" name="bio" rows="2" placeholder="Biography (Maximum 75 characters)" autocomplete="off"></textarea>
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-outline-primary" type="submit">Update Profile</button>
+    </div>
+  </form>
+{% endblock %}

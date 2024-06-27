@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  New Post
+{% endblock %}
+
+{% block styles %}
+  <style>
+    option {
+      background-color: #ffffff;
+      color: #000000;
+      cursor: pointer;
+    }
+
+    option:hover {
+      background-color: #0d6efd;
+      color: #ffffff;
+      transition: background-color 0.2s color 0.2s;
+    }
+
+    option:active {
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+  <div class="mb-3">
+    <h1 class="text-primary text-center">Share Your Post</h1>
+  </div>
+  <div class="mb-3">
+    <form action="/new_post" method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Title (Maximum 100 characters)" autocomplete="off">
+      </div>
+      <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <textarea class="form-control" id="content" name="content" rows="5" placeholder="Content" autocomplete="off"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select" id="category" name="category" aria-placeholder="Category" autocomplete="off">
+          <option value="" disabled selected>Select a category</option>
+          <option value="Technology">Technology</option>
+          <option value="Science">Science</option>
+          <option value="Video Games">Video Games</option>
+          <option value="Life">Life</option>
+          <option value="Cooking">Cooking</option>
+          <option value="Traveling">Traveling</option>
+          <option value="Sports and Fitness">Sports and Fitness</option>
+          <option value="Fashion and Design">Fashion and Design</option>
+          <option value="Movies and Series">Movies and Series</option>
+          <option value="Books">Books</option>
+          <option value="Music">Music</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="summary" class="form-label">Summary</label>
+        <textarea class="form-control" id="summary" name="summary" rows="2" placeholder="Summary (Maximum 250 characters)" autocomplete="off"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="tags" class="form-label">Tags</label>
+        <input type="text" class="form-control" id="tags" name="tags" placeholder="Tag (e.g., Technology, Moives, Life)" autocomplete="off">
+      </div>
+      <div class="mb-3">
+        <label for="cover_image" class="form-label">Cover Image</label>
+        <input class="form-control" type="file" id="cover_image" name="cover_image" placeholder="Cover Image" autocomplete="off">
+      </div>
+      <button type="submit" class="btn btn-outline-primary">Create Post</button>
+    </form>
+  </div>
+{% endblock %}

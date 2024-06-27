@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Profile
+{% endblock %}
+
+{% block styles %}
+  <style>
+    .profile-container {
+      margin-top: 20px;
+      padding: 20px;
+      color: #0d6efd;
+      background-image: linear-gradient(to left, #00d9ff 0%, #ffffff 100%);
+      border-radius: 10px;
+    }
+
+    .profile-image {
+      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+
+    h5 {
+      margin-bottom: 10px;
+    }
+
+    .card {
+      margin-bottom: 20px;
+    }
+
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+  <div class="container profile-container">
+    <div class="row align-items-center">
+      <div class="col-md-4 text-center">
+        {% if user.profile_image %}
+          <img src="{{ url_for('static', filename='images/' ~ user.profile_image) }}" class="profile-image" alt="Profile Image">
+        {% else %}
+          <img src="{{ url_for('static', filename='images/default_profile.jpg') }}" class="profile-image" alt="Profile Image">
+        {% endif %}
+        <br><br>
+        <h5>Username: {{ user.username }}</h5>
+        <h5>Bio: {{ user.bio }}</h5>
+        <a href="/update_profile" class="btn btn-outline-primary">Update Profile</a>
+        <a href="/delete_profile_image" class="btn btn-outline-danger">Delete Profile Image</a>
+      </div>
+      <div class="col-md-8 profile-details">
+        <h5>Followers: {{ user.followers }} / Following: {{ user.following }} / Posts: {{ user.post_count }}</h5>
+        <h5>Joined at {{ user.join_date }}</h5>
+        <a href="/followers" class="btn btn-outline-primary">Followers List</a>
+        <a href="/following" class="btn btn-outline-primary">Following List</a>
+      </div>
+    </div>
+  </div>
+
+  <br><br>
+
+  <h2 class="text-primary text-center mt-5">{{ user.username }}'s Posts</h2>
+  <br>
+  <div class="row">
+    {% for post in posts %}
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card h-100">
+          {% if post.cover_image %}
+            <img src="{{ url_for('static', filename='images/' ~ post.cover_image) }}" class="card-img-top img-fixed-height object-fit-cover" alt="Post Image">
+          {% else %}
+            <img src="{{ url_for('static', filename='images/default.png') }}" class="card-img-top img-fixed-height object-fit-cover" alt="Default Image">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <h6 class="card-title">Author: {{ post.username }} / Date: {{ post.publish_date }}</h6>
+            <br>
+            <p class="card-text">Summary: {{ post.summary }}</p>
+            <br>
+            <a href="{{ url_for('update_post', post_id=post.id) }}" class="btn btn-outline-primary">Update Post</a>
+            <a href="{{ url_for('delete_post', post_id=post.id) }}" class="btn btn-outline-danger">Delete Post</a>
+            <br><br>
+            <a href="{{ url_for('post_details', post_id=post.id) }}" class="btn btn-outline-primary">Post Details</a>
+            <a href="{{ url_for('show_comments', post_id=post.id) }}" class="btn btn-outline-primary">Comments</a>
+            <br><br>
+            <form action="/like_post/{{ post.id }}" method="post" style="display:inline;">
+              <button type="submit" class="btn btn-outline-success">Like</button>
+              <span>{{ post.likes_count }}</span>
+            </form>
+            <form action="/dislike_post/{{ post.id }}" method="post" style="display:inline;">
+              <button type="submit" class="btn btn-outline-danger">Dislike</button>
+              <span>{{ post.dislikes_count }}</span>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

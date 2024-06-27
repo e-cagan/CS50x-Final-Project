@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Update Sub Comment
+{% endblock %}
+
+{% block main %}
+  <form action="{{ url_for('update_sub_comment', sub_comment_id=sub_comment_id) }}" method="post">
+    <div class="mb-3">
+      <label for="new_sub_comment" class="form-label">New Sub Comment</label>
+      <textarea class="form-control" id="new_sub_comment" name="new_sub_comment" rows="2" placeholder="New Sub Comment" autocomplete="off"></textarea>
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-outline-primary" type="submit">Update Sub Comment</button>
+    </div>
+  </form>
+{% endblock %}

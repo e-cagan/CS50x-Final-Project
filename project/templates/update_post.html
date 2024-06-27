@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Update Post
+{% endblock %}
+
+{% block styles %}
+  <style>
+    .form-select option {
+      background-color: #ffffff;
+      color: #000000;
+      cursor: pointer;
+    }
+
+    .form-select option:hover {
+      background-color: #0d6efd;
+      color: #ffffff;
+      transition: background-color 0.2s color 0.2s;
+    }
+
+    .form-select option:active {
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+  <div class="container mt-4">
+    <h1 class="text-primary text-center">Update Your Post</h1>
+    <form action="{{ url_for('update_post', post_id=post.id) }}" method="POST" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ post.title }}">
+      </div>
+      <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <textarea class="form-control" id="content" name="content" rows="5">{{ post.content }}</textarea>
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select" id="category" name="category">
+          <option value="" disabled>Select a category</option>
+          <option value="Technology" {% if post.category == "Technology" %}selected{% endif %}>Technology</option>
+          <option value="Science" {% if post.category == "Science" %}selected{% endif %}>Science</option>
+          <option value="Video Games" {% if post.category == "Video Games" %}selected{% endif %}>Video Games</option>
+          <option value="Life" {% if post.category == "Life" %}selected{% endif %}>Life</option>
+          <option value="Cooking" {% if post.category == "Cooking" %}selected{% endif %}>Cooking</option>
+          <option value="Traveling" {% if post.category == "Traveling" %}selected{% endif %}>Traveling</option>
+          <option value="Sports and Fitness" {% if post.category == "Sports and Fitness" %}selected{% endif %}>Sports and Fitness</option>
+          <option value="Fashion and Design" {% if post.category == "Fashion and Design" %}selected{% endif %}>Fashion and Design</option>
+          <option value="Movies and Series" {% if post.category == "Movies and Series" %}selected{% endif %}>Movies and Series</option>
+          <option value="Books" {% if post.category == "Books" %}selected{% endif %}>Books</option>
+          <option value="Music" {% if post.category == "Music" %}selected{% endif %}>Music</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="summary" class="form-label">Summary</label>
+        <textarea class="form-control" id="summary" name="summary" rows="2">{{ post.summary }}</textarea>
+      </div>
+      <div class="mb-3">
+        <label for="tags" class="form-label">Tags</label>
+        <input type="text" class="form-control" id="tags" name="tags" value="{{ post.tags }}">
+      </div>
+      <div class="mb-3">
+        <label for="cover_image" class="form-label">Cover Image</label>
+        <input class="form-control" type="file" id="cover_image" name="cover_image">
+      </div>
+      <button type="submit" class="btn btn-outline-primary">Update Post</button>
+    </form>
+  </div>
+{% endblock %}

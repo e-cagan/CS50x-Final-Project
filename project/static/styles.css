@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(to bottom, #00d9ff 0%, #ffffff 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.navbar {
+    background-color: #ffffff;
+}
+
+.nav-item {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.nav-link {
+    color: #000000;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+    color: #0d6efd;
+    transition: color 0.2s, text-decoration 0.2s;
+}
+
+.navbar-brand:active {
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: #0d6efd;
+    color: #ffffff;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.dropdown-item:active {
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.btn.btn-outline-primary {
+    background-color: #ffffff;
+    color: #0d6efd;
+    border: 1px solid #0d6efd;
+}
+
+.btn.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: #ffffff;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn.btn-outline-primary:active {
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.btn.btn-outline-danger {
+    background-color: #ffffff;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+}
+
+.btn.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: #ffffff;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn.btn-outline-danger:active {
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.btn.btn-outline-success {
+    background-color: #ffffff;
+    color: #198754;
+    border: 1px solid #198754;
+}
+
+.btn.btn-outline-success:hover {
+    background-color: #198754;
+    color: #ffffff;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn.btn-outline-success:active {
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.fa-brands {
+    color: #0d6efd;
+}
+
+.fa-brands:hover {
+    color: #dc3545;
+    transition: color 0.3s;
+}
+
+.fa-brands:active {
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}

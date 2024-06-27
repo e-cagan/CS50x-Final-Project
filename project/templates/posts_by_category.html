@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Posts in {{ category }}
+{% endblock %}
+
+{% block main %}
+  <h1 class="text-primary text-center">All posts for category {{ category }}</h1>
+  <br><br>
+  <div class="row text-start">
+    {% for post in posts %}
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card h-100">
+          {% if post.cover_image %}
+            <img src="{{ url_for('static', filename='images/' ~ post.cover_image) }}" class="card-img-top img-fixed-height img-thumbnail" alt="Post Image">
+          {% else %}
+            <img src="{{ url_for('static', filename='images/default.png') }}" class="card-img-top img-fixed-height" alt="Default Image">
+          {% endif %}
+          <div class="card-body"">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <h6 class="card-title">Author: {{ post.username }} / Date: {{ post.publish_date }}</h6>
+            <br>
+            <p class="card-text">Summary: {{ post.summary }}</p>
+            <br>
+            <a href="{{ url_for('update_post', post_id=post.id) }}" class="btn btn-outline-primary">Update Post</a>
+            <a href="{{ url_for('delete_post', post_id=post.id) }}" class="btn btn-outline-danger">Delete Post</a>
+            <br><br>
+            <a href="{{ url_for('post_details', post_id=post.id) }}" class="btn btn-outline-primary">Post Details</a>
+            <a href="{{ url_for('show_comments', post_id=post.id) }}" class="btn btn-outline-primary">Comments</a>
+            <br><br>
+            <form action="/like_post/{{ post.id }}" method="post" style="display:inline;">
+              <button type="submit" class="btn btn-outline-success">Like</button>
+              <span>{{ post.likes_count }}</span>
+            </form>
+            <form action="/dislike_post/{{ post.id }}" method="post" style="display:inline;">
+              <button type="submit" class="btn btn-outline-danger">Dislike</button>
+              <span>{{ post.dislikes_count }}</span>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
